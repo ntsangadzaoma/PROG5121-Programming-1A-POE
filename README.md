@@ -2,30 +2,40 @@
 
 ## Project Overview
 
-This project implements the PROG5121 Programming 1A Portfolio of Evidence (POE), consisting of Part 1 (Registration and Login) and Part 2 (Sending Messages).
+This project implements the PROG5121 Programming 1A Portfolio of Evidence (POE), consisting of three parts:
 
-The application is a Java-based console application developed using Maven. It includes user registration, login authentication, message validation, message hashing, message sending and JSON message storage.
+- **Part 1:** Registration and Login
+- **Part 2:** Sending Messages
+- **Part 3:** Store Data and Display Task Report
 
-## Project Contents
+The application is a Java-based console application developed using Apache Maven. It includes user registration, login authentication, message validation, message hashing, message sending, JSON storage, message searching, deletion and reporting.
+
+## Project Structure
 
 ### Part 1 — Registration and Login
 
 - `Login.java` — user registration, validation and login methods.
 - `LoginTest.java` — JUnit tests for registration and login validation.
-- `Main.java` — console application containing the registration, login and QuickChat functionality.
+- `Main.java` — console application containing registration, login and messaging functionality.
 
 ### Part 2 — Sending Messages
 
 - `Message.java` — message ID generation, recipient validation, message length validation, message hashing, sending, disregarding, printing and JSON storage.
 - `MessageTest.java` — JUnit tests covering message validation, ID generation, hashing, sending and JSON storage.
 
+### Part 3 — Store Data and Display Task Report
+
+- `Message.java` — dynamically populated message arrays, JSON reading, stored-message searching, deletion and report generation.
+- `Main.java` — includes the Stored Messages menu and its associated operations.
+- `Part3Test.java` — six JUnit tests covering the Part 3 requirements.
+
 ### Project Configuration
 
 - `pom.xml` — Maven configuration, including JUnit 5 and Gson dependencies.
 - `.gitignore` — excludes generated build files, IDE files and local message storage.
-- `.github/workflows/` — GitHub Actions workflow for automated testing.
+- `.github/workflows/TestJava.yml` — GitHub Actions workflow for automated testing.
 
-## Part 1 — Required Methods
+## Part 1 — Required Functionality
 
 The `Login` class implements:
 
@@ -36,7 +46,9 @@ The `Login` class implements:
 - `loginUser()`
 - `returnLoginStatus()`
 
-## Part 2 — Required Methods
+The application validates usernames, passwords and cellphone numbers during registration and login.
+
+## Part 2 — Message Functionality
 
 The `Message` class implements:
 
@@ -48,22 +60,48 @@ The `Message` class implements:
 - `returnTotalMessagess()`
 - `storeMessage()`
 
+The application supports sending, disregarding and storing messages. Messages selected for storage are saved in JSON format using Gson.
+
+## Part 3 — Store Data and Display Task Report
+
+Part 3 extends the messaging application with five dynamically populated arrays:
+
+1. **Sent Messages** — contains all sent messages.
+2. **Disregarded Messages** — contains all disregarded messages.
+3. **Stored Messages** — contains messages loaded from the JSON file.
+4. **Message Hash** — contains message hashes.
+5. **Message ID** — contains message IDs.
+
+The application includes a fourth main menu option called **Stored Messages**.
+
+The Stored Messages menu provides the following functionality:
+
+- Display the sender and recipient of all stored messages.
+- Display the longest stored message.
+- Search for a message using its message ID and display the corresponding recipient and message.
+- Search for all stored messages belonging to a particular recipient.
+- Delete a stored message using its message hash.
+- Display a report containing the details of all stored messages.
+
 ## QuickChat Features
 
-The application provides the following functionality:
+The application provides:
 
 1. User registration and login.
-2. A QuickChat menu with three options:
-   - Send Messages
-   - Show recently sent messages (`Coming Soon.`)
-   - Quit
-3. Generation and validation of unique 10-digit message IDs.
+2. A messaging menu with four options:
+   - Send Messages.
+   - Show recently sent messages.
+   - Quit.
+   - Stored Messages.
+3. Generation and validation of 10-digit message IDs.
 4. Recipient cellphone number validation.
 5. Message length validation (maximum 250 characters).
 6. Automatic message hash generation.
-7. Options to Send, Disregard or Store messages.
-8. JSON storage of messages using Gson.
-9. Display of message details and total messages sent.
+7. Send, Disregard and Store message actions.
+8. JSON storage and retrieval using Gson.
+9. Dynamic message arrays.
+10. Stored-message searching and deletion.
+11. Stored-message report generation.
 
 ## Technologies Used
 
@@ -80,7 +118,7 @@ The application provides the following functionality:
 
 - Java Development Kit (JDK) 17 or later.
 - Apache Maven.
-- An IDE such as NetBeans or Visual Studio Code.
+- An IDE such as Visual Studio Code or NetBeans.
 
 ### Run the application
 
@@ -99,42 +137,74 @@ Execute:
 mvn clean test
 ```
 
-The automated tests cover registration, login, message validation, message ID generation, message hashing, message actions and JSON storage.
-
 ## JSON Message Storage
 
 Messages selected for storage are saved in `messages.json` in the project directory.
 
-The JSON file records:
+The JSON records include:
 
-- Message ID
-- Message number
-- Recipient
-- Message content
-- Message hash
-- Message status
+- Message ID.
+- Message number.
+- Sender.
+- Recipient.
+- Message content.
+- Message hash.
+- Message status.
 
 The application uses the Gson library for JSON processing.
 
-## Testing
+The `messages.json` file is excluded from Git version control through `.gitignore`.
+
+## Automated Testing
 
 JUnit 5 is used for automated testing.
 
-The project currently contains 23 automated tests covering Part 1 and Part 2 functionality.
+The project currently contains **29 automated tests**:
 
-The tests can be executed using Maven:
+| Test class | Number of tests |
+|---|---:|
+| LoginTest | 8 |
+| MessageTest | 15 |
+| Part3Test | 6 |
+| **Total** | **29** |
+
+The latest local test execution completed successfully:
+
+```text
+Tests run: 29
+Failures: 0
+Errors: 0
+Skipped: 0
+
+BUILD SUCCESS
+```
+
+Run the tests using:
 
 ```bash
 mvn clean test
 ```
 
+## Continuous Integration
+
+The project includes a GitHub Actions workflow:
+
+`.github/workflows/TestJava.yml`
+
+The workflow automatically executes Maven tests when changes are pushed or pull requests are created.
+
+It uses Java 17 and Maven to verify the application.
+
 ## Version Control
 
-The project was developed using Git and GitHub.
+The project uses Git and GitHub for version control.
 
-Part 2 was developed on the `part-2-development` branch and subsequently merged into `main` through a GitHub pull request.
+Development is organised into separate branches for the different POE parts:
 
-GitHub Actions is configured to execute automated tests when changes are pushed or pull requests are created.
+- `part-2-development`
+- `part-3-development`
+
+Completed work is merged into the main branch through GitHub pull requests after testing.
 
 ## References
 
